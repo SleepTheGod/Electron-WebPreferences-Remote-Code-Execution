@@ -1,0 +1,14 @@
+{
+  "name": "electron-rce-poc",
+  "version": "1.0.0",
+  "description": "Remote Code Execution PoC for Electron with insecure configuration.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Red Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0"
+  }
+}
